@@ -39,7 +39,12 @@
       assign ratio = 1
     endif
   -%}
-  <div class="card-wrapper product-card-wrapper underline-links-hover">
+  <div class="card-wrapper product-card-wrapper underline-links-hover ">
+       {%- if card_product.metafields.theme.product_lowest_price != blank -%}
+          <span class="product-lowest-price" style="position: absolute; top: 32px; left: 24px; z-index: 1;font-family: 'halyard-display-variable', sans-serif;font-weight: 700;font-size: 16px;letter-spacing: -2%;text-align: center;vertical-align: middle;color: #7460DE;">
+            {{ card_product.metafields.theme.product_lowest_price }}
+          </span>
+        {% endif %}
     <div
       class="
         card card--{{ settings.card_style }}
@@ -52,10 +57,14 @@
       "
       style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
     >
+    
       <div
         class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
         style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
       >
+
+      
+        
         {%- if card_product.featured_media -%}
           <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
             <div class="media media--transparent media--hover-effect">
