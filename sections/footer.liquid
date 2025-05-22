@@ -377,6 +377,7 @@ document.addEventListener('DOMContentLoaded', initializeHomepageWelcomeModal);
 </script>
 <script>
   (function() {
+
     console.log('Debug: Optimized script content modifier v10 started');
 
     // Optimized endsWith function
@@ -428,52 +429,57 @@ document.addEventListener('DOMContentLoaded', initializeHomepageWelcomeModal);
 
             console.log('Debug: Optimized patches applied to sc_gqbreak_app_global');
 
-          sc_gqbreak_app_global.get_cart_prices = function (e, t) {
-              var r = function (r) {
-                sc_gqbreak_app_global.qb_current_cart = r,
-                  e(r),
-                  0 != t && r.total_discount_amt > 0 && sc_gqbreak_app_global.show_savings_message(r)
-              };
-              sc_gqbreak_app_global.get_cart((function (e) {
+          sc_gqbreak_app_global.get_cart_prices = function(e, t) {
+            var n = function(n) {
+                var r = 0;
+                for (r = 0; r < n.item_prices.length; r++)
+                    n.item_prices[r].r_bc_price = sc_gqbreak_app_global.convert_base_currency_value(n.item_prices[r].r_price),
+                    n.item_prices[r].r_bc_discount_amount = sc_gqbreak_app_global.convert_base_currency_value(n.item_prices[r].r_discount_amount),
+                    n.item_prices[r].bc_price = sc_math_round(n.item_prices[r].r_bc_price, 2),
+                    n.item_prices[r].bc_discount_amount = sc_math_round(n.item_prices[r].r_bc_discount_amount, 2),
+                    n.item_prices[r].dsg = 19e3 * parseFloat(n.item_prices[r].discount_amount) + 29e3 * parseFloat(n.item_prices[r].percent_discount);
+                n.r_bc_total_price = sc_gqbreak_app_global.convert_base_currency_value(n.r_total_price),
+                n.r_bc_total_discount_amt = sc_gqbreak_app_global.convert_base_currency_value(n.r_total_discount_amt),
+                n.bc_total_price = sc_math_round(n.r_bc_total_price, 2),
+                n.bc_total_discount_amt = sc_math_round(n.r_bc_total_discount_amt, 2),
+                sc_gqbreak_app_global.qb_current_cart = n,
+                e(n),
+                !1 != t && n.total_discount_amt > 0 && sc_gqbreak_app_global.show_savings_message(n)
+            };
+            sc_gqbreak_app_global.get_cart(function(e) {
                 if (console.log(e),
-                  !(e.total_price <= 0)) {
-                  var t = []
-                    , n = 0;
-                  for (n = 0; n < e.items.length; n++)
-                    t.push(e.items[n].product_id);
-                  sc_gqbreak_app_global.get_products_by_ids(t, (function (t) {
-                    sc_gqbreak_app_global.get_normalized_qb_data(t, (function (t) {
-                      if (null != t) {
-                        var n = sc_gqbreak_app_global.calculate_cart_prices(e, t)
-                          , o = sc_gqbreak_app_global.validate_min_qty(e, t);
-                        console.log(n),
-                          sc_gqbreak_app_global.qb_current_cart = n,
-                          o.valid || (sc_gqbreak_app_global.qb_current_cart.invalid_min_qty_msg = o.messages),
-                          "undefined" != typeof sc_gws_app_global ? sc_gqbreak_app_global.get_qb_cart_with_wholesale_discount(n, (function (e) {
-                            n = e,
-                              sc_gqbreak_app_global.add_extra_prices_to_cart(n, (function (e) {
-                                r(n = e)
-                              }
-                              ))
-                          }
-                          )) : (console.log("AAAAAAAAAAAA---------BBBBBBBBBBBB----ffff"), customRepaint(),
-                            console.log(n),
-                            sc_gqbreak_app_global.add_extra_prices_to_cart(n, (function (e) {
-                              r(n = e)
+                !(e.total_price <= 0)) {
+                    var t = []
+                      , r = 0;
+                    for (r = 0; r < e.items.length; r++)
+                        t.push(e.items[r].product_id);
+                    sc_gqbreak_app_global.get_products_by_ids(t, function(t) {
+                        sc_gqbreak_app_global.get_normalized_qb_data(t, function(t) {
+                            if (null != t) {
+                                var r = sc_gqbreak_app_global.calculate_cart_prices(e, t)
+                                  , o = sc_gqbreak_app_global.validate_min_qty(e, t);
+                                console.log(r),
+                                sc_gqbreak_app_global.qb_current_cart = r,
+                                o.valid || (sc_gqbreak_app_global.qb_current_cart.invalid_min_qty_msg = o.messages),
+                                "undefined" != typeof sc_gws_app_global ? sc_gqbreak_app_global.get_qb_cart_with_wholesale_discount(r, function(e) {
+                                    r = e,
+                                    sc_gqbreak_app_global.add_extra_prices_to_cart(r, function(e) {
+                                        n(r = e)
+                                    })
+                                }) : (console.log("AAAAAAAAAAAA---------BBBBBBBBBBBB"), customRepaint(),
+                                console.log(r),
+                                sc_gqbreak_app_global.add_extra_prices_to_cart(r, function(e) {
+                                    n(r = e)
+                                }))
                             }
-                            )))
-                      }
-                    }
-                    ))
-                  }
-                  ))
-                } else { customRepaint(); console.log('no val cart force qty refresh'); }
-              }
-              ))
-            }
+                        })
+                    })
+                }
+            })
+        }
 
         } else {
-            console.warn('Debug: Could not find sc_gqbreak_app_global');
+            console.warn('Debug: Could not find sc_gqbreak_app_global'); customRepaint();
         }
     }
 

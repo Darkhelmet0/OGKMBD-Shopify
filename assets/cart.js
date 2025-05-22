@@ -376,7 +376,7 @@ variationInputs.forEach(input => {
 });
 
 function updateQuantities() {
-  fetch('/cart.js')
+  fetch('/cart.js?update_quantities=1')
     .then(response => response.json())
     .then(cart => {
 
